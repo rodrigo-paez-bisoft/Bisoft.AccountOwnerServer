@@ -1,4 +1,10 @@
-﻿namespace Bisoft.AccountOwnerServer.Extensions
+﻿using Contracts;
+using LoggerService;
+using Microsoft.EntityFrameworkCore;
+using Entities;
+using Repository;
+
+namespace Bisoft.AccountOwnerServer.Extensions
 {
     public static class ServiceExtensions
     {
@@ -20,5 +26,22 @@
 
             });
         }
+        public static void ConfigureLoggerService(this IServiceCollection services)
+        {
+            services.AddSingleton<ILoggerManager, LoggerManager>();
+        }
+
+        public static void ConfigureSqliteContext(this IServiceCollection services, IConfiguration config)
+        {
+            // Obtenemos la cadena de conexión definida en appsettings.json bajo "ConnectionStrings"
+            var connectionString = config.GetConnectionString("sqliteDefault");
+
+            services.AddDbContext<RepositoryContext>(options =>
+                options.UseSqlite(connectionString));
+        }
+        public static void ConfigureRepositoryWrapper(this IServiceCollection services)
+        {
+            services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
+        }   
     }
 }
