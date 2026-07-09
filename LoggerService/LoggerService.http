@@ -1,6 +1,0 @@
-@LoggerService_HostAddress = http://localhost:5193
-
-GET {{LoggerService_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
