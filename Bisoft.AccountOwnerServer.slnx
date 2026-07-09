@@ -1,5 +1,7 @@
 <Solution>
   <Project Path="Bisoft.AccountOwnerServer/Bisoft.AccountOwnerServer.csproj" />
   <Project Path="Contracts/Contracts.csproj" Id="3411afc2-f354-4a10-9b6b-ff9e82c08fc3" />
+  <Project Path="Entities/Entities.csproj" Id="0dd13ea1-899b-4dc9-806d-5f847cddc112" />
   <Project Path="LoggerService/LoggerService/LoggerService.csproj" Id="0252a62d-0127-4f15-9606-95e5e7513ee9" />
+  <Project Path="Repository/Repository.csproj" Id="b6cd9db8-6372-4dd8-829a-be0ab7ad10dd" />
 </Solution>
