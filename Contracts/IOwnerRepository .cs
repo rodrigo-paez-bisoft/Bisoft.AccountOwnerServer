@@ -3,7 +3,9 @@ using Entities.Models;
 
 namespace Contracts
 {
-    public interface IOwnerRepository : IRepositoryBase<Owner>
+    public interface IOwnerRepository
     {
+        IEnumerable<Owner> GetAllOwners();
+        Owner GetOwnerById(Guid ownerId);
     }
 }

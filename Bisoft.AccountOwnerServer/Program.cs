@@ -2,6 +2,10 @@
 using Bisoft.AccountOwnerServer.Extensions;
 using Microsoft.AspNetCore.HttpOverrides;
 using NLog;
+using Contracts;
+using Repository;
+using Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace Bisoft.AccountOwnerServer
 {
@@ -9,6 +13,7 @@ namespace Bisoft.AccountOwnerServer
     {
         public static void Main(string[] args)
         {
+
             var builder = WebApplication.CreateBuilder(args);
 
             LogManager.Setup().LoadConfigurationFromFile(string.Concat(Directory.GetCurrentDirectory(), "/nlog.config"));
@@ -21,6 +26,16 @@ namespace Bisoft.AccountOwnerServer
             builder.Services.ConfigureLoggerService();
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddOpenApi();
+
+
+            //Automapper
+            builder.Services.AddAutoMapper(cfg => { }, typeof(MappingProfile));
+
+
+            builder.Services.AddDbContext<RepositoryContext>(options =>
+    options.UseSqlite(
+        builder.Configuration.GetConnectionString("sqliteDefault")));
+            builder.Services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
 
             var app = builder.Build();
 

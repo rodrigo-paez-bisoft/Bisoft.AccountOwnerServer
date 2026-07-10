@@ -11,5 +11,16 @@ namespace Repository
             : base(repositoryContext)
         {
         }
+        public IEnumerable<Owner> GetAllOwners()
+        {
+            return FindAll()
+                .OrderBy(ow => ow.Name)
+                .ToList();
+        }
+        public Owner GetOwnerById(Guid ownerId)
+        {
+            return FindByCondition(owner => owner.Id.Equals(ownerId))
+                    .FirstOrDefault();
+        }
     }
 }
