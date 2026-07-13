@@ -2,7 +2,8 @@
 using Contracts;
 using Entities.DataTransferObjects;
 using Entities.models;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc; 
+using Newtonsoft.Json;
 
 namespace Bisoft.AccountOwnerServer.Controllers
 {
@@ -23,7 +24,7 @@ namespace Bisoft.AccountOwnerServer.Controllers
 
 
         //End point para traer todo
-        [HttpGet]
+        /*[HttpGet]
         public IActionResult GetAllOwners()
         {
             try
@@ -31,14 +32,52 @@ namespace Bisoft.AccountOwnerServer.Controllers
                 var owners = _repository.Owner.GetAllOwners();
                 _logger.LogInfo($"Returned all owners from database.");
                 return Ok(owners);
+
+
             }
             catch (Exception ex)
             {
                 _logger.LogError($"Something went wrong inside GetAllOwners action: {ex.Message}");
                 return StatusCode(500, "Internal server error");
             }
-        }
+        }*/
+        /* [HttpGet]
+         public IActionResult GetOwners([FromQuery] OwnerParameters ownerParameters)
+         {
+             try
+             {
+                 var owners = _repository.Owner.GetOwners(ownerParameters);
+                 _logger.LogInfo($"Returned {owners.Count()} owners from database.");
+                 return Ok(owners);
 
+             }
+             catch (Exception ex)
+             {
+                 _logger.LogError($"Something went wrong inside GetAllOwners action: {ex.Message}");
+                 return StatusCode(500, "Internal server error");
+             }
+         }*/
+        [HttpGet]
+        public IActionResult GetOwners([FromQuery] OwnerParameters ownerParameters)
+        {
+            var owners = _repository.Owner.GetOwners(ownerParameters);
+
+            var metadata = new
+            {
+                owners.TotalCount,
+                owners.PageSize,
+                owners.CurrentPage,
+                owners.TotalPages,
+                owners.HasNext,
+                owners.HasPrevious
+            };
+
+            Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(metadata));
+
+            _logger.LogInfo($"Returned {owners.TotalCount} owners from database.");
+
+            return Ok(owners);
+        }
         //End point especifico 
         [HttpGet("{id}", Name = "OwnerById")]
         public IActionResult GetOwnerById(Guid id)

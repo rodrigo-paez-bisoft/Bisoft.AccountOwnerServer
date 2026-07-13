@@ -12,12 +12,32 @@ namespace Repository
             : base(repositoryContext)
         {
         }
-        public IEnumerable<Owner> GetAllOwners()
+
+        //Trae todos los owners y los ordena por nombre
+        /*public IEnumerable<Owner> GetAllOwners()
         {
             return FindAll()
                 .OrderBy(ow => ow.Name)
                 .ToList();
+        }*/
+        
+
+        public PagedList<Owner> GetOwners(OwnerParameters ownerParameters)
+        {
+            return PagedList<Owner>.ToPagedList(FindAll().OrderBy(on => on.Name),
+                ownerParameters.PageNumber,
+                ownerParameters.PageSize);
         }
+        //Trae todos los owners y los ordena por nombre
+        /*public IEnumerable<Owner> GetOwners(OwnerParameters ownerParameters)
+        {
+            return FindAll()
+                .OrderBy(on => on.Name)
+                .Skip((ownerParameters.PageNumber - 1) * ownerParameters.PageSize)
+                .Take(ownerParameters.PageSize)
+                .ToList();
+        }*/
+
         public Owner GetOwnerById(Guid ownerId)
         {
             return FindByCondition(owner => owner.Id==ownerId)

@@ -29,3 +29,19 @@ materializacion en c#
 DTO
 ----------
 guid --> UUID
+
+
+----------
+
+capas de dominio
+
+fluent validation 
+crear clase paciente
+
+
+Nuggets
+newtonsoft.json
+microsoft.entityframeworkcore.sqlite
+microsoft.entityframeworkcore
+microsoft.aspnetcore.openapi
+Automapper

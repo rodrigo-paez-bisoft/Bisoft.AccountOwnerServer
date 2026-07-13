@@ -12,8 +12,15 @@ namespace Repository
         {
             RepositoryContext = repositoryContext;
         }
+        
+        
+        //Viejo
+        //public IQueryable<T> FindAll() => RepositoryContext.Set<T>().AsNoTracking();
 
-        public IQueryable<T> FindAll() => RepositoryContext.Set<T>().AsNoTracking();
+        public IQueryable<T> FindAll()
+        {
+            return this.RepositoryContext.Set<T>();
+        }
 
         public IQueryable<T> FindByCondition(Expression<Func<T, bool>> expression) =>
             RepositoryContext.Set<T>().Where(expression).AsNoTracking();
