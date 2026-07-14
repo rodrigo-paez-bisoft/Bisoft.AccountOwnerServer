@@ -17,15 +17,15 @@ https://code-maze.com/dependency-injection-aspnet/
 
 # Conceptos de tarea
 
-ANTI PATRONES DE DISEÑO 
+~~ANTI PATRONES DE DISEÑO~~ 
 
-mapper
-lazy loading
-eager loading
+~~mapper~~
+~~lazy loading~~
+~~eager loading~~
 .include c#
-metodos landa
-objetos anonimos
-materializacion en c#
+~~metodos lambda~~
+~~objetos anonimos~~
+~~materializacion en c#~~
 DTO
 ----------
 guid --> UUID

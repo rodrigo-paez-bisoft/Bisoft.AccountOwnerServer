@@ -60,6 +60,10 @@ namespace Bisoft.AccountOwnerServer.Controllers
         [HttpGet]
         public IActionResult GetOwners([FromQuery] OwnerParameters ownerParameters)
         {
+            if (!ownerParameters.ValidYearRange)
+            {
+                return BadRequest("Max year of birth cannot be less than min year of birth");
+            }
             var owners = _repository.Owner.GetOwners(ownerParameters);
 
             var metadata = new

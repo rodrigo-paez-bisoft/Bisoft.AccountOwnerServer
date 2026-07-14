@@ -37,6 +37,12 @@ namespace Bisoft.AccountOwnerServer
         builder.Configuration.GetConnectionString("sqliteDefault")));
             builder.Services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
 
+
+            //builder.Services.AddScoped(typeof(Entities.Helpers.ISortHelper<>), typeof(Entities.Helpers.SortHelper<>));
+            //builder.Services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
+            builder.Services.ConfigureRepositoryWrapper();
+            builder.Services.ConfigureSqliteContext(builder.Configuration);
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

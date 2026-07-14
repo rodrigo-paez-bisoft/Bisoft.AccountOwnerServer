@@ -1,7 +1,10 @@
 ﻿using Contracts;
+using Entities;
+using Entities.Helpers;
+using Entities.models;
+using Entities.Models;
 using LoggerService;
 using Microsoft.EntityFrameworkCore;
-using Entities;
 using Repository;
 
 namespace Bisoft.AccountOwnerServer.Extensions
@@ -41,6 +44,8 @@ namespace Bisoft.AccountOwnerServer.Extensions
         }
         public static void ConfigureRepositoryWrapper(this IServiceCollection services)
         {
+            services.AddScoped<ISortHelper<Owner>, SortHelper<Owner>>();
+            services.AddScoped<ISortHelper<Account>, SortHelper<Account>>();
             services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
         }   
     }

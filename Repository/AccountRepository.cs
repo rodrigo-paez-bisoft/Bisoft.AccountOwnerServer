@@ -1,13 +1,16 @@
 ﻿using Contracts;
 using Entities;
-using Entities.Models;
+using Entities.Helpers;
 using Entities.models;
+using Entities.Models;
 
 namespace Repository
 {
     public class AccountRepository : RepositoryBase<Account>, IAccountRepository
     {
-        public AccountRepository(RepositoryContext repositoryContext)
+
+        private ISortHelper<Account> _sortHelper;
+        public AccountRepository(RepositoryContext repositoryContext, ISortHelper<Account> sortHelper)
             : base(repositoryContext)
         {
         }
